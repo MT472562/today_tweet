@@ -17,19 +17,40 @@ text=text.replace('この日', '今日')
 
 titl=soup.find("dt")
 titl=str(titl)
-titl=titl.replace('<dt>', '')
-titl=titl.replace('</dt>', '')
-titl=titl.replace('<span>', '')
-titl=titl.replace('</span>', '')
+replace_list = [
+    ('<dd>', ''),
+    ('</dd>', ''),
+    ('この日', '今日')
+]
 
-day=soup.find("h2")
-day=str(day)
-day=day.replace('<h2 id="date">', '')
-day=day.replace('<span class="date__dayW">', '')
-day=day.replace('</h2>', '')
-day=day.replace('<span>', '')
-day=day.replace('</span>', '')
-day=day.replace('\n', '')
+for old, new in replace_list:
+    text = text.replace(old, new)
+
+titl = soup.find("dt")
+titl = str(titl)
+replace_list = [
+    ('<dt>', ''),
+    ('</dt>', ''),
+    ('<span>', ''),
+    ('</span>', '')
+]
+
+for old, new in replace_list:
+    titl = titl.replace(old, new)
+
+day = soup.find("h2")
+day = str(day)
+replace_list = [
+    ('<h2 id="date">', ''),
+    ('<span class="date__dayW">', ''),
+    ('</h2>', ''),
+    ('<span>', ''),
+    ('</span>', ''),
+    ('\n', '')
+]
+
+for old, new in replace_list:
+    day = day.replace(old, new)
 tweettext=\
     "【{0}今日はなんの日？】".format(day)+"\n"\
         "今日は{0}".format(titl)+"\n\n"\
